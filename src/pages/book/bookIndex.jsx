@@ -1,82 +1,63 @@
-import { Space, Table, Tag } from "antd";
+import { Space, Table } from "antd";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getBooks } from "../../services/bookService";
 
 const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => <a>{text}</a>,
+    title: "Title",
+    dataIndex: "title",
+    key: "title",
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
+    title: "Author",
+    dataIndex: "author",
+    key: "author",
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
+    title: "Genre",
+    dataIndex: "genre",
+    key: "genre",
   },
   {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-
-          if (tag === "loser") {
-            color = "volcano";
-          }
-
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: "Publish year",
+    dataIndex: "publish_year",
+    key: "publish_year",
+  },
+  {
+    title: "Available",
+    dataIndex: "stock",
+    key: "stock",
   },
   {
     title: "Action",
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
+        <Link to={record.key}>Show details {record.title}</Link>
       </Space>
     ),
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
-
 const BookIndexComponent = () => {
-  return <Table columns={columns} dataSource={data} />;
+  const [books, setBooks] = useState([]);
+  async function bookIndex() {
+    const booksResponse = await getBooks();
+    const books = booksResponse.map((book) => ({
+      key: book.id,
+      title: book.title,
+      author: book.author,
+      publish_year: book.publish_year,
+      genre: book.genre,
+      stock: book.stock
+    }))
+    setBooks(books);
+  }
+  useEffect(() => {
+    bookIndex();
+  }, []);
+  return <Table columns={columns} dataSource={books} />;
 };
 
 export default BookIndexComponent;
