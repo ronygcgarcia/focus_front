@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-import { Button } from 'antd';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import HomeComponent from "./pages/home/home";
+import LoginComponent from "./pages/auth/login";
+import AuthContext from "./context/AuthContext";
 
 function App() {
+  const token = localStorage.getItem('token');
+  const [loggedIn, setLoggedIn] = useState(!!token);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Button type="primary">Ant Design</Button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {loggedIn ? (
+        <AuthContext.Provider value={{ loggedIn, setLoggedIn }}>
+          <Router>
+            <Routes>
+              <Route path="/" exact element={<HomeComponent />}></Route>
+            </Routes>
+          </Router>
+        </AuthContext.Provider>
+      ) : (
+        <LoginComponent setLoggedIn={setLoggedIn}/>
+      )}
     </div>
   );
 }
