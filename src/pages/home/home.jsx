@@ -1,11 +1,12 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { DownOutlined } from "@ant-design/icons";
-import { Dropdown, Layout, Menu, Space } from "antd";
+import { Button, Dropdown, Layout, Menu, Space } from "antd";
 import React, { useState, useEffect, useContext } from "react";
 import icons from "../icons";
 import AuthContext from "../../context/AuthContext";
 import { getRoutes } from "../../services/authService";
 import "./home.css";
+import { Outlet } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
@@ -13,6 +14,11 @@ const HomeComponent = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { setLoggedIn } = useContext(AuthContext);
   const [routes, setRoutes] = useState([]);
+
+  async function logout() {
+    localStorage.removeItem("token");
+    setLoggedIn(false);
+  }
 
   useEffect(() => {
     async function routes() {
@@ -74,25 +80,26 @@ const HomeComponent = () => {
                     {
                       key: "1",
                       label: (
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href="https://www.antgroup.com"
+                        <Button
+                          style={{
+                            borderStyle: "none",
+                          }}
+                          onClick={logout}
                         >
                           Logout
-                        </a>
+                        </Button>
                       ),
                     },
                   ]}
                 />
               }
             >
-              <a onClick={()=>{ console.log('');}}>
+              <div className="site-dropdown">
                 <Space>
                   User
                   <DownOutlined />
                 </Space>
-              </a>
+              </div>
             </Dropdown>
           </Header>
           <Content
@@ -103,7 +110,7 @@ const HomeComponent = () => {
               minHeight: 280,
             }}
           >
-            Content
+            <Outlet />
           </Content>
         </Layout>
       </Layout>
