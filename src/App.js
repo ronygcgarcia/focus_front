@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import HomeComponent from "./pages/home/home";
-import LoginComponent from "./pages/auth/login";
+import HomeComponent from "./pages/home/Home";
+import LoginComponent from "./pages/auth/Login";
 import AuthContext from "./context/AuthContext";
-import BookDetailComponent from "./pages/book/bookDetail";
-import BookIndexComponent from "./pages/book/bookIndex";
+import BookDetailComponent from "./pages/book/BookDetail";
+import BookIndexComponent from "./pages/book/BookIndex";
+import CheckoutComponent from "./pages/checkout/Checkout";
 import history from "./utils/history";
 import Router from "./components/Router";
 
@@ -20,7 +21,16 @@ function App() {
           <Routes>
             <Route element={<HomeComponent />}>
               <Route path="/" exact element={<BookIndexComponent />} />
-              <Route path="/book/:book_id" exact element={<BookDetailComponent />} />
+              <Route
+                path="/book/:book_id"
+                exact
+                element={<BookDetailComponent />}
+              />
+              <Route
+                path="/me/checkouts"
+                exact
+                element={<CheckoutComponent />}
+              />
             </Route>
             <Route path="/login" element={<LoginComponent />} />
           </Routes>
