@@ -7,6 +7,7 @@ import AuthContext from "../../context/AuthContext";
 import { getRoutes } from "../../services/authService";
 import "./home.css";
 import { Outlet, useNavigate } from "react-router-dom";
+import { getUser } from "../../services/authService";
 
 const { Header, Sider, Content } = Layout;
 
@@ -14,6 +15,7 @@ const HomeComponent = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { setLoggedIn } = useContext(AuthContext);
   const [routes, setRoutes] = useState([]);
+  const [user, setUser] = useState({});
 
   const navigate = useNavigate();
 
@@ -33,6 +35,14 @@ const HomeComponent = () => {
       }));
       setRoutes(items);
     }
+
+    
+    async function fetchUser() {
+      const user = await getUser();
+      setUser(user);
+    }
+
+    fetchUser();
     fetchRoutes();
   }, []);
 
@@ -99,7 +109,7 @@ const HomeComponent = () => {
             >
               <div className="site-dropdown">
                 <Space>
-                  User
+                  {user.first_name}{user.last_name}
                   <DownOutlined />
                 </Space>
               </div>
