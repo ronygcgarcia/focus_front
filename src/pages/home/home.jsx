@@ -6,7 +6,7 @@ import icons from "../icons";
 import AuthContext from "../../context/AuthContext";
 import { getRoutes } from "../../services/authService";
 import "./home.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
@@ -15,13 +15,16 @@ const HomeComponent = () => {
   const { setLoggedIn } = useContext(AuthContext);
   const [routes, setRoutes] = useState([]);
 
+  const navigate = useNavigate();
+
   async function logout() {
     localStorage.removeItem("token");
+    navigate('/login');
     setLoggedIn(false);
   }
 
   useEffect(() => {
-    async function routes() {
+    async function fetchRoutes() {
       const routes = await getRoutes();
       const items = routes.map((route) => ({
         key: route.orden,
@@ -30,7 +33,7 @@ const HomeComponent = () => {
       }));
       setRoutes(items);
     }
-    routes();
+    fetchRoutes();
   }, []);
 
   return (

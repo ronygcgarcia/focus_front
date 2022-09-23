@@ -1,13 +1,19 @@
 import { Button, Form, Input, Card } from "antd";
-import React from "react";
+import React, { useContext } from "react";
 import "./login.css";
 import { login } from "../../services/authService";
+import AuthContext from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const LoginComponent = ({ setLoggedIn }) => {
+const LoginComponent = () => {
+  const navigate = useNavigate();
+  const { setLoggedIn } = useContext(AuthContext);
+
   const onFinish = async (values) => {
     const { email, password } = values;
     const { token } = await login(email, password);
-    localStorage.setItem("token", token);
+    localStorage.setItem("token", token);    
+    navigate('/');
     setLoggedIn(true);
   };
 

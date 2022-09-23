@@ -1,4 +1,5 @@
 import axios from "axios";
+import history from "./history";
 
 const httpClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -10,5 +11,24 @@ httpClient.interceptors.request.use(function (config) {
   config.headers.Authorization = token ? `Bearer ${token}` : "";
   return config;
 });
+
+httpClient.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  async function (error) {
+    if (error.response?.status === 403) {
+      history.replace("/forbidden");
+      return Promise.reject(error);
+    }
+    console.log(error.response.status);
+    if (error.response?.status === 401) {
+      history.replace("/login");
+      return Promise.reject(error);
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export default httpClient;

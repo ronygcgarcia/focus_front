@@ -14,4 +14,11 @@ const getRoutes = async () => {
 
   return routes;
 };
-export { login, getRoutes };
+
+const getUser = async () => {
+  const { data: user } = await axios.get("/user");
+
+  return user;
+}
+
+export { login, getRoutes, getUser };
