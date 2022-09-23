@@ -21,7 +21,7 @@ const HomeComponent = () => {
 
   async function logout() {
     localStorage.removeItem("token");
-    navigate('/login');
+    navigate("/login");
     setLoggedIn(false);
   }
 
@@ -29,14 +29,13 @@ const HomeComponent = () => {
     async function fetchRoutes() {
       const routes = await getRoutes();
       const items = routes.map((route) => ({
-        key: route.orden,
+        key: route.uri,
         icon: icons[route.icon],
         label: route.name,
       }));
       setRoutes(items);
     }
 
-    
     async function fetchUser() {
       const user = await getUser();
       setUser(user);
@@ -60,9 +59,12 @@ const HomeComponent = () => {
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="logo" />
           <Menu
+            onClick={({ key }) => {
+              navigate(key);
+            }}
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={["1"]}
+            defaultSelectedKeys={[window.location.pathname]}
             items={routes}
           />
         </Sider>
@@ -109,7 +111,8 @@ const HomeComponent = () => {
             >
               <div className="site-dropdown">
                 <Space>
-                  {user.first_name}{user.last_name}
+                  {user.first_name}
+                  {user.last_name}
                   <DownOutlined />
                 </Space>
               </div>
