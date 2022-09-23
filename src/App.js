@@ -20,7 +20,7 @@ function App() {
           <Routes>
             <Route element={<HomeComponent />}>
               <Route path="/" exact element={<BookIndexComponent />} />
-              <Route path="/:book_id" exact element={<BookDetailComponent />} />
+              <Route path="/book/:book_id" exact element={<BookDetailComponent />} />
             </Route>
             <Route path="/login" element={<LoginComponent />} />
           </Routes>

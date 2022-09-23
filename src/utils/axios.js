@@ -21,7 +21,6 @@ httpClient.interceptors.response.use(
       history.replace("/forbidden");
       return Promise.reject(error);
     }
-    console.log(error.response.status);
     if (error.response?.status === 401) {
       history.replace("/login");
       return Promise.reject(error);

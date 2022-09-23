@@ -34,7 +34,7 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <Link to={record.key}>Show details {record.title}</Link>
+        <Link to={`book/${record.key}`}>Show details</Link>
       </Space>
     ),
   },
