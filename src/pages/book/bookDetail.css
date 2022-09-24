@@ -3,18 +3,18 @@
     background: #ececec;
 }
 
-.site-book-detail {
+.site-index-detail {
     display: flex;
     justify-content: center;
 }
 
-.site-book-card {
+.site-index-card {
     width: 30em;
     margin-top: 16;
     justify-content: center;
 }
 
-.site-book-card-info {
+.site-index-card-info {
     margin: 0;
 }
 
@@ -53,3 +53,103 @@
     display: flex;
     justify-content: space-between;
 }
+
+
+/* Extra small devices (phones, 600px and down) */
+
+@media only screen and (max-width: 600px) {
+    .site-index {
+        margin: 1em;
+        overflow-y: scroll;
+    }
+    .site-table {
+        height: 100%;
+        overflow: scroll;
+    }
+    .site-top-table {
+        flex-direction: column;
+    }
+    .site-filters {
+        flex-direction: column;
+        width: 100%;
+    }
+    .site-search-button {
+        width: 100%;
+    }
+    .site-link-button {
+        margin-right: 0;
+    }
+}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@media only screen and (min-width: 600px) {
+    .site-index {
+        margin: 1em;
+        overflow-y: scroll;
+    }
+    .site-table {
+        height: 100%;
+        overflow: scroll;
+    }
+    .site-top-table {
+        flex-direction: column;
+    }
+    .site-filters {
+        flex-direction: column;
+        width: 100%;
+    }
+    .site-search-button {
+        width: 100%;
+    }
+    .site-link-button {
+        margin-right: 0;
+    }
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (min-width: 768px) {
+    .site-index {
+        margin: 1em;
+        overflow-y: hidden;
+    }
+    .site-table {
+        height: 100%;
+        overflow: hidden;
+    }
+    .site-top-table {
+        flex-direction: row;
+    }
+    .site-filters {
+        flex-direction: row;
+        justify-content: start;
+        width: 100%;
+    }
+    .site-filters>input {
+        width: 200px;
+    }
+    .site-filters {
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .site-search-button {
+        width: 100%;
+    }
+    .site-link-button {
+        margin-right: 0;
+    }
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and (min-width: 992px) {}
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+@media only screen and (min-width: 1200px) {}

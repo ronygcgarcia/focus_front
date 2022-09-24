@@ -16,6 +16,7 @@ const columns = [
     title: "Author",
     dataIndex: "author",
     key: "author",
+    responsive: ['md', 'lg'],
   },
   {
     title: "Genre",
@@ -26,11 +27,13 @@ const columns = [
     title: "Publish year",
     dataIndex: "publish_year",
     key: "publish_year",
+    responsive: ['md', 'lg'],
   },
   {
     title: "Available",
     dataIndex: "stock",
     key: "stock",
+    responsive: ['md', 'lg'],
   },
   {
     title: "Action",
@@ -79,7 +82,7 @@ const BookIndexComponent = () => {
     fetchGenres();
   }, []);
   return (
-    <div>
+    <div className="site-index">
       <div className="site-link-button">
         <div className="site-top-table">
           <Form className="site-filters" onFinish={onFinish} autoComplete="off">
@@ -110,7 +113,11 @@ const BookIndexComponent = () => {
               </Select>
             </Form.Item>
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="site-search-button"
+              >
                 Search
               </Button>
             </Form.Item>
@@ -128,9 +135,11 @@ const BookIndexComponent = () => {
         columns={columns}
         dataSource={books}
         pagination={{
-          pageSize: 10
+          pageSize: 10,
         }}
         loading={loading}
+        className="site-table"
+        scroll={{ x: true }}
       />
     </div>
   );
