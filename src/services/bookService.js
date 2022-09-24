@@ -20,4 +20,16 @@ const checkoutBook = async (bookId) => {
   return book;
 };
 
-export { getBooks, getBook, checkoutBook };
+const getBookGenre = async () => {
+  const { data: genre } = await axios.get("/genre");
+
+  return genre;
+};
+
+const storeBook = async (book) => {
+  const { data: bookResponse } = await axios.post("/books", book);
+
+  return bookResponse;
+};
+
+export { getBooks, getBook, checkoutBook, getBookGenre, storeBook };
