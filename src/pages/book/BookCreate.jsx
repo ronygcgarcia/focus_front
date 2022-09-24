@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getBookGenre, storeBook } from "../../services/bookService";
 import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import "../../pages/form.css";
 const { Title } = Typography;
 
 const BookCreateComponente = () => {
@@ -21,6 +22,21 @@ const BookCreateComponente = () => {
   };
   const [genres, setGenre] = useState([]);
   const [saving, setSaving] = useState("checkout");
+
+  const layout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 8 },
+      md: { span: 8 },
+      lg: { span: 8 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 12 },
+      md: { span: 12 },
+      lg: { span: 8 },
+    },
+  };
 
   const buttonStatus = {
     checkout: "Save book",
@@ -46,25 +62,14 @@ const BookCreateComponente = () => {
   }, []);
 
   return (
-    <div
-      className="site-book-detail"
-      style={{
-        width: "100%",
-        justifyContent: "center",
-        flexDirection: "column",
-      }}
-    >  
-      {(<Title level={3}>Create book</Title>)}
+    <div className="site-detail">
+      {<Title level={3}>Create book</Title>}
       <Form
+        className="site-form"
+        {...layout}
         name="basic"
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 16 }}
-        initialValues={{ remember: true }}
         onFinish={onFinish}
         autoComplete="off"
-        style={{
-          width: "100%",
-        }}
       >
         <Form.Item
           label="Title"
@@ -128,7 +133,14 @@ const BookCreateComponente = () => {
           <Input type="number" />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
+        <Form.Item
+          wrapperCol={{
+            xs: { span: 24 },
+            sm: { span: 24 },
+            md: { span: 24 },
+            lg: { span: 24 },
+          }}
+        >
           <Button
             type="primary"
             htmlType="submit"

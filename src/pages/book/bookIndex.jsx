@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getBooks, getBookGenre } from "../../services/bookService";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
+import "../../pages/list.css";
 const { Option } = Select;
 
 const columns = [
@@ -16,6 +17,7 @@ const columns = [
     title: "Author",
     dataIndex: "author",
     key: "author",
+    responsive: ["md", "lg"],
   },
   {
     title: "Genre",
@@ -26,11 +28,13 @@ const columns = [
     title: "Publish year",
     dataIndex: "publish_year",
     key: "publish_year",
+    responsive: ["md", "lg"],
   },
   {
     title: "Available",
     dataIndex: "stock",
     key: "stock",
+    responsive: ["md", "lg"],
   },
   {
     title: "Action",
@@ -79,17 +83,21 @@ const BookIndexComponent = () => {
     fetchGenres();
   }, []);
   return (
-    <div>
-      <div className="site-link-button">
-        <div className="site-top-table">
-          <Form className="site-filters" onFinish={onFinish} autoComplete="off">
-            <Form.Item name="title">
+    <div className="site-index">
+      <div className="site-top-table">
+        <div className="site-filters">
+          <Form
+            className="site-form-filters"
+            onFinish={onFinish}
+            autoComplete="off"
+          >
+            <Form.Item name="title" className="site-filter-item">
               <Input placeholder="Search by title" />
             </Form.Item>
-            <Form.Item name="author">
+            <Form.Item name="author" className="site-filter-item">
               <Input placeholder="Search by author" />
             </Form.Item>
-            <Form.Item name="genre_id">
+            <Form.Item name="genre_id" className="site-filter-item">
               <Select
                 showSearch
                 placeholder="Select a genre"
@@ -97,9 +105,6 @@ const BookIndexComponent = () => {
                 filterOption={(input, option) =>
                   option.children.toLowerCase().includes(input.toLowerCase())
                 }
-                style={{
-                  minWidth: "200px",
-                }}
                 allowClear
               >
                 {genres.map((genre) => (
@@ -109,8 +114,12 @@ const BookIndexComponent = () => {
                 ))}
               </Select>
             </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
+            <Form.Item >
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="site-search-button"
+              >
                 Search
               </Button>
             </Form.Item>
@@ -128,9 +137,11 @@ const BookIndexComponent = () => {
         columns={columns}
         dataSource={books}
         pagination={{
-          pageSize: 10
+          pageSize: 10,
         }}
         loading={loading}
+        className="site-table"
+        scroll={{ x: true }}
       />
     </div>
   );

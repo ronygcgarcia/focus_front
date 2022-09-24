@@ -2,6 +2,7 @@ import { Table } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getUsers } from "../../services/authService";
+import "../../pages/list.css";
 
 const columns = [
   {
@@ -48,7 +49,7 @@ const UserIndexComponent = () => {
     userIndex();
   }, []);
   return (
-    <div>
+    <div className="site-index">
       <div className="site-link-button">
         <Link to="/users/create" className="ant-btn ant-btn-default">
           Create user
@@ -61,6 +62,7 @@ const UserIndexComponent = () => {
           pageSize: 10,
         }}
         loading={loading}
+        scroll={{ x: true }}
       />
     </div>
   );
