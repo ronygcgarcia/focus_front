@@ -28,8 +28,10 @@ const columns = [
 
 const UserIndexComponent = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   async function userIndex() {
+    setLoading(true);
     const userResponse = await getUsers();
     const users = userResponse.map((user) => ({
       key: user.id,
@@ -39,6 +41,7 @@ const UserIndexComponent = () => {
       role: user?.roles[0],
     }));
     setUsers(users);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -51,7 +54,14 @@ const UserIndexComponent = () => {
           Create user
         </Link>
       </div>
-      <Table columns={columns} dataSource={users} />
+      <Table
+        columns={columns}
+        dataSource={users}
+        pagination={{
+          pageSize: 10,
+        }}
+        loading={loading}
+      />
     </div>
   );
 };

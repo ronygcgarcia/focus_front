@@ -46,9 +46,12 @@ const columns = [
 const BookIndexComponent = () => {
   const [books, setBooks] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const { user } = useContext(AuthContext);
 
   async function bookIndex(filter = {}) {
+    setLoading(true);
     const booksResponse = await getBooks(filter);
     const books = booksResponse.map((book) => ({
       key: book.id,
@@ -59,6 +62,7 @@ const BookIndexComponent = () => {
       stock: book.stock,
     }));
     setBooks(books);
+    setLoading(false);
   }
 
   async function fetchGenres() {
@@ -88,7 +92,7 @@ const BookIndexComponent = () => {
             <Form.Item name="genre_id">
               <Select
                 showSearch
-                placeholder="Select a person"
+                placeholder="Select a genre"
                 optionFilterProp="children"
                 filterOption={(input, option) =>
                   option.children.toLowerCase().includes(input.toLowerCase())
@@ -120,7 +124,14 @@ const BookIndexComponent = () => {
           )}
         </div>
       </div>
-      <Table columns={columns} dataSource={books} />
+      <Table
+        columns={columns}
+        dataSource={books}
+        pagination={{
+          pageSize: 10
+        }}
+        loading={loading}
+      />
     </div>
   );
 };

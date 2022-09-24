@@ -1,7 +1,7 @@
 import axios from "../utils/axios";
 
-const getStudentCheckouts = async () => {
-  const { data: checkouts } = await axios.get("/checkouts");
+const getStudentCheckouts = async (filter = {}) => {
+  const { data: checkouts } = await axios.get("/checkouts", { params: filter });
 
   return checkouts;
 };
