@@ -1,11 +1,13 @@
-import { Checkbox, Space, Table, Typography } from "antd";
+import { Button, Checkbox, Form, Select, Space, Table, Typography } from "antd";
 import { useEffect, useState, useContext } from "react";
 import {
   getStudentCheckouts,
   setReturned,
 } from "../../services/checkoutService";
 import AuthContext from "../../context/AuthContext";
+import { getUsers } from "../../services/authService";
 const { Text } = Typography;
+const { Option } = Select;
 
 const CheckoutComponent = () => {
   const { user } = useContext(AuthContext);
@@ -20,6 +22,11 @@ const CheckoutComponent = () => {
       title: "Author",
       dataIndex: "author",
       key: "author",
+    },
+    {
+      title: "User",
+      dataIndex: "user",
+      key: "user",
     },
     {
       title: "Checkout date",
@@ -57,19 +64,29 @@ const CheckoutComponent = () => {
     });
   }
   const [checkouts, setCheckout] = useState([]);
-  async function checkoutIndex() {
-    const checkoutsResponse = await getStudentCheckouts();
+  const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+  async function fetchUsers() {
+    const response = await getUsers();
+    setUsers(response);
+  }
+
+  async function checkoutIndex(filter = {}) {
+    setLoading(true);
+    const checkoutsResponse = await getStudentCheckouts(filter);
     const books = checkoutsResponse.map((checkout) => {
       const { book } = checkout;
       return {
         key: checkout.id,
         title: book.title,
         author: book.author,
+        user: `${checkout.first_name} ${checkout.last_name}`,
         checkout_date: checkout.checkout_date,
         status: checkout.status,
       };
     });
     setCheckout(books);
+    setLoading(false);
   }
 
   const onChange = async (e) => {
@@ -77,10 +94,69 @@ const CheckoutComponent = () => {
     await checkoutIndex();
   };
 
+  const onFinish = async (values) => {
+    await checkoutIndex(values);
+  };
+
   useEffect(() => {
     checkoutIndex();
-  }, []);
-  return <Table columns={columns} dataSource={checkouts} />;
+    if (user?.roles?.includes("librarian")) fetchUsers();
+  }, [user]);
+  return (
+    <div>
+      {user?.roles?.includes("librarian") ? (
+        <div className="site-link-button">
+          <div className="site-top-table">
+            <Form
+              className="site-filters"
+              onFinish={onFinish}
+              autoComplete="off"
+              style={{
+                justifyContent: "space-between",
+                width: "25%",
+              }}
+            >
+              <Form.Item name="user_id">
+                <Select
+                  showSearch
+                  placeholder="Select a user"
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option.children.toLowerCase().includes(input.toLowerCase())
+                  }
+                  style={{
+                    minWidth: "200px",
+                  }}
+                  allowClear
+                >
+                  {users.map((user) => (
+                    <Option value={user.id} key={user.id}>
+                      {`${user.first_name} ${user.last_name}`}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Search
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+      <Table
+        columns={columns}
+        dataSource={checkouts}
+        pagination={{
+          pageSize: 10,
+        }}
+        loading={loading}
+      />
+    </div>
+  );
 };
 
 export default CheckoutComponent;
