@@ -6,6 +6,7 @@ import {
 } from "../../services/checkoutService";
 import AuthContext from "../../context/AuthContext";
 import { getUsers } from "../../services/authService";
+import "../../pages/list.css";
 const { Text } = Typography;
 const { Option } = Select;
 
@@ -22,6 +23,7 @@ const CheckoutComponent = () => {
       title: "Author",
       dataIndex: "author",
       key: "author",
+      responsive: ["md", "lg"],
     },
     {
       title: "User",
@@ -32,10 +34,12 @@ const CheckoutComponent = () => {
       title: "Checkout date",
       dataIndex: "checkout_date",
       key: "checkout_date",
+      responsive: ["md", "lg"],
     },
     {
       title: "Status",
       key: "status",
+      responsive: ["xs", "sm", "md", "lg"],
       render: (_, record) => (
         <Space size="middle">
           {record.status ? (
@@ -103,20 +107,16 @@ const CheckoutComponent = () => {
     if (user?.roles?.includes("librarian")) fetchUsers();
   }, [user]);
   return (
-    <div>
+    <div className="site-index">
       {user?.roles?.includes("librarian") ? (
-        <div className="site-link-button">
-          <div className="site-top-table">
+        <div className="site-top-table">
+          <div className="site-filters">
             <Form
-              className="site-filters"
+              className="site-form-filters"
               onFinish={onFinish}
               autoComplete="off"
-              style={{
-                justifyContent: "space-between",
-                width: "25%",
-              }}
             >
-              <Form.Item name="user_id">
+              <Form.Item name="user_id" className="site-filter-item">
                 <Select
                   showSearch
                   placeholder="Select a user"
@@ -124,9 +124,6 @@ const CheckoutComponent = () => {
                   filterOption={(input, option) =>
                     option.children.toLowerCase().includes(input.toLowerCase())
                   }
-                  style={{
-                    minWidth: "200px",
-                  }}
                   allowClear
                 >
                   {users.map((user) => (
@@ -137,7 +134,11 @@ const CheckoutComponent = () => {
                 </Select>
               </Form.Item>
               <Form.Item>
-                <Button type="primary" htmlType="submit">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="site-search-button"
+                >
                   Search
                 </Button>
               </Form.Item>
@@ -154,6 +155,7 @@ const CheckoutComponent = () => {
           pageSize: 10,
         }}
         loading={loading}
+        scroll={{ x: true }}
       />
     </div>
   );

@@ -110,7 +110,10 @@ const HomeComponent = () => {
             </Dropdown>
           </Header>
           <Content
-            className="site-layout-background"            
+            className="site-layout-background"
+            style={{
+              overflowY: "scroll",
+            }}
           >
             <Outlet />
           </Content>
