@@ -12,9 +12,9 @@ const getBook = async (book_id) => {
   return book;
 };
 
-const checkoutBook = async (books) => {
+const checkoutBook = async (bookId) => {
   const { data: book } = await axios.post("/books/checkout", {
-    books,
+    book_id: bookId,
   });
 
   return book;

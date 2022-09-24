@@ -37,16 +37,13 @@ const CheckoutComponent = () => {
   const [checkouts, setCheckout] = useState([]);
   async function checkoutIndex() {
     const checkoutsResponse = await getStudentCheckouts();
-    const books = checkoutsResponse.map((bookItem) => {
-      const {
-        books: [book],
-        checkout_date: checkoutDate,
-      } = bookItem;
+    const books = checkoutsResponse.map((checkout) => {
+      const { book } = checkout;
       return {
         title: book.title,
         author: book.author,
-        checkout_date: checkoutDate,
-        status: book.checkout_details.status,
+        checkout_date: checkout.checkout_date,
+        status: checkout.status,
       };
     });
     setCheckout(books);

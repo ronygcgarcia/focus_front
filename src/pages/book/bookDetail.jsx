@@ -1,4 +1,4 @@
-import { Button, Card, Spin } from "antd";
+import { Button, Card, Spin, Tag } from "antd";
 import "./bookDetail.css";
 import { getBook, checkoutBook } from "../../services/bookService";
 import { useEffect, useState } from "react";
@@ -30,7 +30,7 @@ const BookDetailComponent = () => {
   async function fetchCheckout() {
     try {
       setChecking("loading");
-      await checkoutBook([Number(bookId)]);
+      await checkoutBook(Number(bookId));
       setChecking("success");
     } catch {
       setChecking("reject");
@@ -64,20 +64,34 @@ const BookDetailComponent = () => {
         }
         className="site-book-card"
       >
-        <Meta title={book?.title} description={book?.description} />
+        <Meta
+          title={book?.title}
+          description={book?.description}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "1em",
+          }}
+        />
         <p className="site-book-card-info">Author: {book?.author}</p>
         <p className="site-book-card-info">
           Publish year: {book?.publish_year}
         </p>
-        <p className="site-book-card-info">Genre: {book?.genre.name}</p>
+        <p className="site-book-card-info">Genre: {book?.genre}</p>
         {book?.stock > 0 ? (
-          <Button
-            className="site-checkout-button"
-            onClick={fetchCheckout}
-            disabled={checking !== "checkout"}
-          >
-            {buttonStatus[checking]}
-          </Button>
+          book?.checkout ? (
+            <Tag style={{ margin: "1em" }} color="red">
+              You already checkout this book
+            </Tag>
+          ) : (
+            <Button
+              className="site-checkout-button"
+              onClick={fetchCheckout}
+              disabled={checking !== "checkout"}
+            >
+              {buttonStatus[checking]}
+            </Button>
+          )
         ) : (
           <p
             style={{
