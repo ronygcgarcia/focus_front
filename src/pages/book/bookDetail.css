@@ -29,3 +29,11 @@
     border-color: #d9d9d9;
     background: #fff;
 }
+
+.site-link-button {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}

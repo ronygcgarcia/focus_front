@@ -2,6 +2,8 @@ import { Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getBooks } from "../../services/bookService";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
 
 const columns = [
   {
@@ -42,6 +44,8 @@ const columns = [
 
 const BookIndexComponent = () => {
   const [books, setBooks] = useState([]);
+  const { user } = useContext(AuthContext);
+
   async function bookIndex() {
     const booksResponse = await getBooks();
     const books = booksResponse.map((book) => ({
@@ -50,14 +54,27 @@ const BookIndexComponent = () => {
       author: book.author,
       publish_year: book.publish_year,
       genre: book.genre,
-      stock: book.stock
-    }))
+      stock: book.stock,
+    }));
     setBooks(books);
   }
   useEffect(() => {
     bookIndex();
   }, []);
-  return <Table columns={columns} dataSource={books} />;
+  return (
+    <div>
+      <div className="site-link-button">
+        {user?.roles?.includes("librarian") ? (
+          <Link to="book/create" className="ant-btn ant-btn-default">
+            Create book
+          </Link>
+        ) : (
+          <></>
+        )}
+      </div>
+      <Table columns={columns} dataSource={books} />
+    </div>
+  );
 };
 
 export default BookIndexComponent;

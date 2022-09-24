@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import HomeComponent from "./pages/home/Home";
+import HomeComponent from "./pages/home/home";
 import LoginComponent from "./pages/auth/Login";
 import AuthContext from "./context/AuthContext";
 import BookDetailComponent from "./pages/book/BookDetail";
-import BookIndexComponent from "./pages/book/BookIndex";
+import BookIndexComponent from "./pages/book/bookIndex";
 import CheckoutComponent from "./pages/checkout/Checkout";
+import BookCreateComponente from "./pages/book/BookCreate";
 import history from "./utils/history";
 import Router from "./components/Router";
 import { getUser } from "./services/authService";
@@ -16,14 +17,14 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(!!token);
   const [user, setUser] = useState({});
 
-  useEffect(() => {  
+  useEffect(() => {
     async function fetchUser() {
       const user = await getUser();
       setUser(user);
     }
 
     fetchUser();
-  }, [loggedIn])
+  }, [loggedIn]);
 
   return (
     <div className="App">
@@ -37,10 +38,11 @@ function App() {
                 exact
                 element={<BookDetailComponent />}
               />
+              <Route path="/checkouts" exact element={<CheckoutComponent />} />
               <Route
-                path="/checkouts"
+                path="/book/create"
                 exact
-                element={<CheckoutComponent />}
+                element={<BookCreateComponente />}
               />
             </Route>
             <Route path="/login" element={<LoginComponent />} />
