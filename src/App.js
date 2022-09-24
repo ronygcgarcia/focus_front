@@ -11,6 +11,8 @@ import BookCreateComponente from "./pages/book/BookCreate";
 import history from "./utils/history";
 import Router from "./components/Router";
 import { getUser } from "./services/authService";
+import UserIndexComponent from "./pages/user/UserIndex";
+import UserCreateComponent from "./pages/user/UserCreate";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -43,6 +45,16 @@ function App() {
                 path="/book/create"
                 exact
                 element={<BookCreateComponente />}
+              />
+              <Route
+                path="/users"
+                exact
+                element={<UserIndexComponent />}
+              />
+              <Route
+                path="/users/create"
+                exact
+                element={<UserCreateComponent />}
               />
             </Route>
             <Route path="/login" element={<LoginComponent />} />
