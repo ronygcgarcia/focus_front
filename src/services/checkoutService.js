@@ -6,4 +6,12 @@ const getStudentCheckouts = async () => {
   return checkouts;
 };
 
-export { getStudentCheckouts };
+const setReturned = async (checkoutId, status) => {
+  const { data: message } = await axios.put(`/checkouts/${checkoutId}`, {
+    status,
+  });
+
+  return message;
+};
+
+export { getStudentCheckouts, setReturned };

@@ -31,7 +31,6 @@ const UserIndexComponent = () => {
 
   async function userIndex() {
     const userResponse = await getUsers();
-    console.log(userResponse);
     const users = userResponse.map((user) => ({
       key: user.id,
       first_name: user.first_name,
