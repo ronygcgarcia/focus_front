@@ -1,7 +1,7 @@
 import axios from "../utils/axios";
 
-const getBooks = async () => {
-  const { data: books } = await axios.get("/books");
+const getBooks = async (filter) => {
+  const { data: books } = await axios.get("/books", { params: filter });
 
   return books;
 };

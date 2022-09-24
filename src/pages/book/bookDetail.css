@@ -37,3 +37,19 @@
     margin-right: 1em;
     margin-bottom: 1em;
 }
+
+.site-top-table {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.site-filters>input {
+    width: 200px;
+}
+
+.site-filters {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
