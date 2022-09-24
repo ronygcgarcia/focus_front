@@ -27,7 +27,7 @@ function App() {
                 element={<BookDetailComponent />}
               />
               <Route
-                path="/me/checkouts"
+                path="/checkouts"
                 exact
                 element={<CheckoutComponent />}
               />
