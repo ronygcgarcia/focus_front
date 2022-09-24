@@ -3,18 +3,18 @@
     background: #ececec;
 }
 
-.site-book-detail {
+.site-index-detail {
     display: flex;
     justify-content: center;
 }
 
-.site-book-card {
+.site-index-card {
     width: 30em;
     margin-top: 16;
     justify-content: center;
 }
 
-.site-book-card-info {
+.site-index-card-info {
     margin: 0;
 }
 

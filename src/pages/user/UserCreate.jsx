@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { getRoles, storeUser } from "../../services/authService";
+import "../../pages/form.css";
 const { Title } = Typography;
 
 const UserCreateComponent = () => {
@@ -20,6 +21,21 @@ const UserCreateComponent = () => {
   };
   const [roles, setRoles] = useState([]);
   const [saving, setSaving] = useState("checkout");
+
+  const layout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 8 },
+      md: { span: 8 },
+      lg: { span: 8 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 12 },
+      md: { span: 12 },
+      lg: { span: 8 },
+    },
+  };
 
   const buttonStatus = {
     checkout: "Save user",
@@ -46,7 +62,7 @@ const UserCreateComponent = () => {
 
   return (
     <div
-      className="site-book-detail"
+      className="site-detail"
       style={{
         width: "100%",
         justifyContent: "center",
@@ -55,15 +71,12 @@ const UserCreateComponent = () => {
     >
       {<Title level={3}>Create user</Title>}
       <Form
+        className="site-form"
         name="basic"
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 16 }}
+        {...layout}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         autoComplete="off"
-        style={{
-          width: "100%",
-        }}
       >
         <Form.Item
           label="First name"
@@ -145,7 +158,14 @@ const UserCreateComponent = () => {
           </Select>
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
+        <Form.Item
+          wrapperCol={{
+            xs: { span: 24 },
+            sm: { span: 24 },
+            md: { span: 24 },
+            lg: { span: 24 },
+          }}
+        >
           <Button
             type="primary"
             htmlType="submit"

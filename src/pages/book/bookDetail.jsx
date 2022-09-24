@@ -1,5 +1,5 @@
 import { Button, Card, Spin, Tag } from "antd";
-import "./bookDetail.css";
+import "./book.css";
 import { getBook, checkoutBook } from "../../services/bookService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -47,7 +47,7 @@ const BookDetailComponent = () => {
     fetchBook();
   }, [bookId]);
   return (
-    <div className="site-book-detail">
+    <div className="site-index-detail">
       <Card
         loading={loading}
         cover={
@@ -62,7 +62,7 @@ const BookDetailComponent = () => {
             }}
           />
         }
-        className="site-book-card"
+        className="site-index-card"
       >
         <Meta
           title={book?.title}
@@ -73,11 +73,11 @@ const BookDetailComponent = () => {
             marginBottom: "1em",
           }}
         />
-        <p className="site-book-card-info">Author: {book?.author}</p>
-        <p className="site-book-card-info">
+        <p className="site-index-card-info">Author: {book?.author}</p>
+        <p className="site-index-card-info">
           Publish year: {book?.publish_year}
         </p>
-        <p className="site-book-card-info">Genre: {book?.genre}</p>
+        <p className="site-index-card-info">Genre: {book?.genre}</p>
         {book?.stock > 0 ? (
           book?.checkout ? (
             <Tag style={{ margin: "1em" }} color="red">
@@ -97,7 +97,7 @@ const BookDetailComponent = () => {
             style={{
               color: "red",
             }}
-            className="site-book-card-info"
+            className="site-index-card-info"
           >
             Not available
           </p>

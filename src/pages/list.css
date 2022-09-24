@@ -1,0 +1,131 @@
+/* Extra small devices (phones, 600px and down) */
+
+@media only screen and (max-width: 600px) {
+    .site-index {
+        margin: 1em;
+        overflow-y: scroll;
+    }
+    .site-filters {
+        width: 100%;
+        flex-direction: column;
+    }
+    .site-table {
+        height: 100%;
+        overflow: scroll;
+    }
+    .site-top-table {
+        flex-direction: column;
+        width: 100%;
+    }
+    .site-form-filters {
+        flex-direction: column;
+        width: 100%;
+    }
+    .site-search-button {
+        width: 100%;
+    }
+    .site-link-button {
+        margin-right: 0;
+    }
+    .ant-btn {
+        margin-bottom: 1em;
+    }
+}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@media only screen and (min-width: 600px) {
+    .site-index {
+        margin: 1em;
+        overflow-y: scroll;
+    }
+    .site-table {
+        height: 100%;
+        overflow: scroll;
+    }
+    .site-top-table {
+        flex-direction: column;
+    }
+    .site-search-button {
+        width: 100%;
+    }
+    .site-link-button {
+        margin-right: 0;
+    }
+    .site-filter-item {
+        width: 100%;
+    }
+    .site-form-filters {
+        flex-direction: column;
+        width: 100%;
+    }
+    .site-filters {
+        width: 100%;
+        flex-direction: column;
+    }
+    .ant-btn {
+        margin-bottom: 1em;
+    }
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (min-width: 768px) {
+    .site-filters {
+        flex-direction: column;
+    }
+    .site-top-table {
+        flex-direction: row;
+    }
+    .site-index {
+        margin: 1em;
+        overflow-y: hidden;
+    }
+    .site-table {
+        height: 100%;
+        overflow: hidden;
+    }
+    .site-top-table {
+        flex-direction: row;
+    }
+    .site-form-filters {
+        flex-direction: row;
+        justify-content: flex-start;
+        width: 100%;
+        display: flex;
+    }
+    .site-search-button {
+        width: 100%;
+    }
+    .site-link-button {
+        margin-right: 0;
+    }
+    .site-filter-item {
+        width: 200px;
+        margin-right: 1em;
+    }
+    .ant-btn {
+        margin-bottom: 1em;
+    }
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and (min-width: 992px) {
+    .site-filters {
+        flex-direction: row;
+    }
+    .site-top-table {
+        justify-content: space-around;
+    }
+    .site-form-filters {
+        display: flex;
+    }
+    .site-filter-item {
+        width: 200px;
+        margin-right: 1em;
+    }
+}
