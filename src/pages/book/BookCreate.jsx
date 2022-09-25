@@ -84,7 +84,7 @@ const BookCreateComponente = () => {
         <Form.Item
           label="Title"
           name="title"
-          rules={[{ required: true, message: "Please input a title!" }]}
+          rules={[{ required: true, message: "Title is required!" }]}
         >
           <Input />
         </Form.Item>
@@ -92,7 +92,7 @@ const BookCreateComponente = () => {
         <Form.Item
           label="Description"
           name="description"
-          rules={[{ required: true, message: "Please input a description!" }]}
+          rules={[{ required: true, message: "Description is required!" }]}
         >
           <TextArea />
         </Form.Item>
@@ -100,7 +100,7 @@ const BookCreateComponente = () => {
         <Form.Item
           label="Image link"
           name="link_image"
-          rules={[{ required: true, message: "Please input a link image!" }]}
+          rules={[{ required: true, message: "Link image is required!" }]}
         >
           <Input />
         </Form.Item>
@@ -108,7 +108,7 @@ const BookCreateComponente = () => {
         <Form.Item
           label="Author"
           name="author"
-          rules={[{ required: true, message: "Please input an author!" }]}
+          rules={[{ required: true, message: "Author is required!" }]}
         >
           <Input />
         </Form.Item>
@@ -116,7 +116,7 @@ const BookCreateComponente = () => {
         <Form.Item
           label="Genre"
           name="genre_id"
-          rules={[{ required: true, message: "Please input a genre!" }]}
+          rules={[{ required: true, message: "Genre is required!" }]}
         >
           <Select>
             {genres.map((genre) => (
@@ -133,7 +133,7 @@ const BookCreateComponente = () => {
           rules={[
             {
               required: true,
-              message: "Please input a publish year!",
+              message: "Publish year is required!",
             },
           ]}
         >
@@ -143,7 +143,7 @@ const BookCreateComponente = () => {
         <Form.Item
           label="Stock"
           name="stock"
-          rules={[{ required: true, message: "Please input a stock!" }]}
+          rules={[{ required: true, message: "Stock is required!" }]}
         >
           <Input />
         </Form.Item>
