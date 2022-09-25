@@ -1,0 +1,8 @@
+.site-card-border-less-wrapper {
+    padding: 30px;
+    background: #ececec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
