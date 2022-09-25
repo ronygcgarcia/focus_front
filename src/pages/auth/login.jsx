@@ -7,14 +7,25 @@ import { useNavigate } from "react-router-dom";
 
 const LoginComponent = () => {
   const navigate = useNavigate();
-  const { setLoggedIn } = useContext(AuthContext);
+  const { setLoggedIn, setNotification } = useContext(AuthContext);
 
   const onFinish = async (values) => {
     const { email, password } = values;
-    const { token } = await login(email, password);
-    localStorage.setItem("token", token);    
-    navigate('/');
-    setLoggedIn(true);
+    try {
+      const { token } = await login(email, password);
+      localStorage.setItem("token", token);
+      navigate("/");
+      setLoggedIn(true);
+      setNotification({
+        type: "success",
+        msg: `Welcome`,
+      });
+    } catch (error) {
+      setNotification({
+        type: "error",
+        msg: error.response.data.error,
+      });
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -22,12 +33,13 @@ const LoginComponent = () => {
   };
 
   return (
-    <div className="site-card-border-less-wrapper">
-      <Card
-        title="Login"
-        bordered={true}
-        style={{ width: "100%", borderRadius: "15px", maxWidth: "500px" }}
-      >
+    <div
+      className="site-card-border-less-wrapper"
+      style={{
+        maxHeight: "100vh",
+      }}
+    >
+      <Card title="Login" bordered={true}>
         <Form
           name="basic"
           labelCol={{
@@ -70,7 +82,7 @@ const LoginComponent = () => {
           </Form.Item>
           <Form.Item
             wrapperCol={{
-              span: 16,
+              md: { offset: 16, span: 16 },
             }}
           >
             <Button type="primary" htmlType="submit">

@@ -1,22 +1,32 @@
 import { Button, Form, Input, Select, Spin } from "antd";
 import { Typography } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { getRoles, storeUser } from "../../services/authService";
 import "../../pages/form.css";
+import AuthContext from "../../context/AuthContext";
 const { Title } = Typography;
 
 const UserCreateComponent = () => {
+  const { setNotification } = useContext(AuthContext);
   const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
       setSaving("loading");
       await storeUser(values);
       setSaving("success");
+      setNotification({
+        type: "success",
+        msg: "User created succesfully",
+      });
       navigate("/users");
-    } catch {
+    } catch (error) {
       setSaving("reject");
+      setNotification({
+        type: "success",
+        msg: error.response.data.message,
+      });
     }
   };
   const [roles, setRoles] = useState([]);

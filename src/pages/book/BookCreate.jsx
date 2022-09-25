@@ -1,27 +1,37 @@
 import { Button, Form, Input, Select, Spin } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { Typography } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getBookGenre, storeBook } from "../../services/bookService";
 import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "../../pages/form.css";
+import AuthContext from "../../context/AuthContext";
 const { Title } = Typography;
 
 const BookCreateComponente = () => {
   const navigate = useNavigate();
+  const [genres, setGenre] = useState([]);
+  const [saving, setSaving] = useState("checkout");
+  const { setNotification } = useContext(AuthContext);
   const onFinish = async (values) => {
     try {
       setSaving("loading");
       await storeBook(values);
       setSaving("success");
+      setNotification({
+        type: "success",
+        msg: "Book has been saved succesfully",
+      });
       navigate("/");
-    } catch {
+    } catch (error) {
       setSaving("reject");
+      setNotification({
+        type: "error",
+        msg: error.response.data.message,
+      });
     }
   };
-  const [genres, setGenre] = useState([]);
-  const [saving, setSaving] = useState("checkout");
 
   const layout = {
     labelCol: {
