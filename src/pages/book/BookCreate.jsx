@@ -130,9 +130,14 @@ const BookCreateComponente = () => {
         <Form.Item
           label="Publish year"
           name="publish_year"
-          rules={[{ required: true, message: "Please input a publish year!" }]}
+          rules={[
+            {
+              required: true,
+              message: "Please input a publish year!",
+            },
+          ]}
         >
-          <Input type="number" />
+          <Input type="number" max={new Date().getFullYear()} />
         </Form.Item>
 
         <Form.Item
@@ -140,7 +145,7 @@ const BookCreateComponente = () => {
           name="stock"
           rules={[{ required: true, message: "Please input a stock!" }]}
         >
-          <Input type="number" />
+          <Input />
         </Form.Item>
 
         <Form.Item
