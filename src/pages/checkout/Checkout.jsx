@@ -1,4 +1,4 @@
-import { Button, Checkbox, Form, Select, Space, Table, Typography } from "antd";
+import { Button, Form, Modal, Select, Space, Table, Typography } from "antd";
 import { useEffect, useState, useContext } from "react";
 import {
   getStudentCheckouts,
@@ -12,6 +12,70 @@ const { Option } = Select;
 
 const CheckoutComponent = () => {
   const { user } = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [checkouts, setCheckouts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [checkout, setCheckout] = useState();
+  const { setNotification } = useContext(AuthContext);
+
+  async function fetchUsers() {
+    const response = await getUsers();
+    setUsers(response);
+  }
+
+  async function checkoutIndex(filter = {}) {
+    setLoading(true);
+    const checkoutsResponse = await getStudentCheckouts(filter);
+    const books = checkoutsResponse.map((checkout) => {
+      const { book } = checkout;
+      return {
+        key: checkout.id,
+        title: book.title,
+        author: book.author,
+        user: `${checkout.first_name} ${checkout.last_name}`,
+        checkout_date: checkout.checkout_date,
+        status: checkout.status,
+      };
+    });
+    setCheckouts(books);
+    setLoading(false);
+  }
+
+  const onFinish = async (values) => {
+    await checkoutIndex(values);
+  };
+
+  const showModal = (checkoutId) => {
+    setCheckout(checkoutId);
+    setOpen(true);
+  };
+
+  const handleOk = async (e) => {
+    try {
+      setConfirmLoading(true);
+      await setReturned(checkout, true);
+      await checkoutIndex();
+      setConfirmLoading(false);
+      setOpen(false);
+      setNotification({
+        type: "success",
+        msg: "Book returned successfully",
+      });
+    } catch (error) {
+      setOpen(false);
+      setConfirmLoading(false);
+      setNotification({
+        type: "error",
+        msg: error.response.data.message,
+      });
+    }
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
 
   const columns = [
     {
@@ -53,54 +117,35 @@ const CheckoutComponent = () => {
   ];
   if (user?.roles?.includes("librarian")) {
     columns.push({
-      title: "Return",
-      key: "return",
+      title: "Action",
+      key: "Action",
       render: (_, record) => (
         <Space size="middle">
-          <Checkbox
-            onChange={onChange}
-            defaultChecked={record.status}
-            value={record.key}
-            disabled={record.status}
-          ></Checkbox>
+          {!record.status ? (
+            <Button
+              type="primary"
+              onClick={() => {
+                showModal(record.key);
+              }}
+            >
+              Return
+            </Button>
+          ) : (
+            <></>
+          )}
+          <Modal
+            title="Return book"
+            open={open}
+            onOk={handleOk}
+            confirmLoading={confirmLoading}
+            onCancel={handleCancel}
+          >
+            <p>Are you sure to return this book?</p>
+          </Modal>
         </Space>
       ),
     });
   }
-  const [checkouts, setCheckout] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState([]);
-  async function fetchUsers() {
-    const response = await getUsers();
-    setUsers(response);
-  }
-
-  async function checkoutIndex(filter = {}) {
-    setLoading(true);
-    const checkoutsResponse = await getStudentCheckouts(filter);
-    const books = checkoutsResponse.map((checkout) => {
-      const { book } = checkout;
-      return {
-        key: checkout.id,
-        title: book.title,
-        author: book.author,
-        user: `${checkout.first_name} ${checkout.last_name}`,
-        checkout_date: checkout.checkout_date,
-        status: checkout.status,
-      };
-    });
-    setCheckout(books);
-    setLoading(false);
-  }
-
-  const onChange = async (e) => {
-    await setReturned(e.target.value, e.target.checked);
-    await checkoutIndex();
-  };
-
-  const onFinish = async (values) => {
-    await checkoutIndex(values);
-  };
 
   useEffect(() => {
     checkoutIndex();
