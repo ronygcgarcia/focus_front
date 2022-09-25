@@ -13,7 +13,9 @@ import Router from "./components/Router";
 import { getUser } from "./services/authService";
 import UserIndexComponent from "./pages/user/UserIndex";
 import UserCreateComponent from "./pages/user/UserCreate";
+import NotFoundPage from "./pages/NotFound";
 import { message } from "antd";
+import Forbidden from "./pages/Forbidden";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -68,6 +70,8 @@ function App() {
               />
             </Route>
             <Route path="/login" element={<LoginComponent />} />
+            <Route path="*" element={<NotFoundPage />} />            
+            <Route path="/forbidden" element={<Forbidden />} />
           </Routes>
         </Router>
       </AuthContext.Provider>
