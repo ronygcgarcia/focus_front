@@ -6,6 +6,7 @@
 .site-index-detail {
     display: flex;
     justify-content: center;
+    margin: 2em;
 }
 
 .site-index-card {
