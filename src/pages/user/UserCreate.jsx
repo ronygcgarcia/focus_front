@@ -91,7 +91,7 @@ const UserCreateComponent = () => {
         <Form.Item
           label="First name"
           name="first_name"
-          rules={[{ required: true, message: "Please input a name!" }]}
+          rules={[{ required: true, message: "First name is required!" }]}
         >
           <Input />
         </Form.Item>
@@ -99,7 +99,7 @@ const UserCreateComponent = () => {
         <Form.Item
           label="Last name"
           name="last_name"
-          rules={[{ required: true, message: "Please input a name!" }]}
+          rules={[{ required: true, message: "Last name is required!" }]}
         >
           <Input />
         </Form.Item>
@@ -107,7 +107,7 @@ const UserCreateComponent = () => {
         <Form.Item
           label="Email"
           name="email"
-          rules={[{ required: true, message: "Please input an email!" }]}
+          rules={[{ required: true, message: "Email is required!" }]}
         >
           <Input />
         </Form.Item>
@@ -118,10 +118,14 @@ const UserCreateComponent = () => {
           rules={[
             {
               required: true,
-              message: "Please input your password!",
+              message: "Password is required!",
+            },
+            {
               pattern: new RegExp(
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/g
               ),
+              message:
+                "Password must contain at least eight characters, at least one number and one special characters",
             },
           ]}
           hasFeedback
@@ -157,7 +161,7 @@ const UserCreateComponent = () => {
         <Form.Item
           label="Role"
           name="role_id"
-          rules={[{ required: true, message: "Please input a role!" }]}
+          rules={[{ required: true, message: "Role is required!" }]}
         >
           <Select>
             {roles.map((role) => (
