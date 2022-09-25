@@ -1,51 +1,13 @@
-import { Button, Form, Input, Select, Space, Table } from "antd";
+import { Button, Form, Input, Select, Table } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getBooks, getBookGenre } from "../../services/bookService";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import "../../pages/list.css";
+import columns from "./TableColumns";
 const { Option } = Select;
 
-const columns = [
-  {
-    title: "Title",
-    dataIndex: "title",
-    key: "title",
-  },
-  {
-    title: "Author",
-    dataIndex: "author",
-    key: "author",
-    responsive: ["md", "lg"],
-  },
-  {
-    title: "Genre",
-    dataIndex: "genre",
-    key: "genre",
-  },
-  {
-    title: "Publish year",
-    dataIndex: "publish_year",
-    key: "publish_year",
-    responsive: ["md", "lg"],
-  },
-  {
-    title: "Available",
-    dataIndex: "stock",
-    key: "stock",
-    responsive: ["md", "lg"],
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <Link to={`book/${record.key}`}>Show details</Link>
-      </Space>
-    ),
-  },
-];
 
 const BookIndexComponent = () => {
   const [books, setBooks] = useState([]);
