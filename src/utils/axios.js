@@ -4,6 +4,9 @@ import history from "./history";
 const httpClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   timeout: 10000,
+  headers: {
+    accept: "application/json",
+  },
 });
 
 httpClient.interceptors.request.use(function (config) {
