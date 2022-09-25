@@ -1,15 +1,17 @@
 import { Button, Card, Spin, Tag } from "antd";
 import "./book.css";
 import { getBook, checkoutBook } from "../../services/bookService";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Meta from "antd/lib/card/Meta";
 import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import AuthContext from "../../context/AuthContext";
 
 const BookDetailComponent = () => {
   const [book, setBook] = useState();
   const [loading, setLoading] = useState(true);
   const [checking, setChecking] = useState("checkout");
+  const { setNotification } = useContext(AuthContext);
   const { book_id: bookId } = useParams();
 
   const buttonStatus = {
@@ -30,10 +32,18 @@ const BookDetailComponent = () => {
   async function fetchCheckout() {
     try {
       setChecking("loading");
-      await checkoutBook(Number(bookId));
+      const response = await checkoutBook(Number(bookId));
       setChecking("success");
-    } catch {
+      setNotification({
+        type: "success",
+        msg: response.message,
+      });
+    } catch (error) {
       setChecking("reject");
+      setNotification({
+        type: "error",
+        msg: error.response.data.message,
+      });
     }
   }
 
