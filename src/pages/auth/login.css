@@ -37,7 +37,8 @@ p.login-form-title {
     border: #3e434d;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 10px 20px 0 rgb(255 255 255 / 20%), 0 11px 15px 0 rgb(255 255 255 / 5%) !important
+    box-shadow: 0 10px 20px 0 rgb(255 255 255 / 20%), 0 11px 15px 0 rgb(255 255 255 / 5%) !important;
+    max-height: 100vh;
 }
 
 .login-form p.login-form-title {
