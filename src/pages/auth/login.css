@@ -1,8 +1,54 @@
 .site-card-border-less-wrapper {
     padding: 30px;
-    background: #ececec;
+    background: #1a202c;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+p.login-form-title {
+    color: #fff;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0;
+    padding: 0.5em;
+}
+
+.login-form-subtitle {
+    font-size: 18px;
+}
+
+.login-card-title>p {
+    margin: 0;
+    color: #fff;
+}
+
+.login-card-title {
+    padding: 1em;
+}
+
+.login-form {
+    flex: 1 0 100%;
+    max-width: 480px;
+    width: 100%;
+    border: #3e434d;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px 0 rgb(255 255 255 / 20%), 0 11px 15px 0 rgb(255 255 255 / 5%) !important
+}
+
+.login-form p.login-form-title {
+    color: #fff;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 42px;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0;
+}
+
+.login-card-title {
+    background: #3e434d;
 }
