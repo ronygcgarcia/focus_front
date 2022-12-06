@@ -15,9 +15,14 @@ const BookCreateComponente = () => {
   const [saving, setSaving] = useState("checkout");
   const { setNotification } = useContext(AuthContext);
   const onFinish = async (values) => {
+    const { publish_year: publishYear, stock, ...body } = values
     try {
       setSaving("loading");
-      await storeBook(values);
+      await storeBook({
+        ...body,
+        publish_year: Number(publishYear),
+        stock: Number(stock)
+      });
       setSaving("success");
       setNotification({
         type: "success",

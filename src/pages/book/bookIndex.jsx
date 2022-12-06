@@ -24,7 +24,7 @@ const BookIndexComponent = () => {
       title: book.title,
       author: book.author,
       publish_year: book.publish_year,
-      genre: book.genre,
+      genre: book.genre?.name,
       stock: book.stock,
     }));
     setBooks(books);
@@ -86,7 +86,7 @@ const BookIndexComponent = () => {
               </Button>
             </Form.Item>
           </Form>
-          {user?.roles?.includes("librarian") ? (
+          {user?.profiles?.some((profile) => profile.name==='librarian') ? (
             <Link to="book/create" className="ant-btn ant-btn-default">
               Create book
             </Link>
