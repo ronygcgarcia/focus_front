@@ -21,9 +21,9 @@ const columns = [
     key: "email",
   },
   {
-    title: "Role",
-    dataIndex: "role",
-    key: "role",
+    title: "Profile",
+    dataIndex: "profile",
+    key: "profile",
   },
 ];
 
@@ -39,7 +39,7 @@ const UserIndexComponent = () => {
       first_name: user.first_name,
       last_name: user.last_name,
       email: user.email,
-      role: user?.roles[0],
+      profile: user?.profiles[0].name,
     }));
     setUsers(users);
     setLoading(false);

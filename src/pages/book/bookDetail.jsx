@@ -87,7 +87,7 @@ const BookDetailComponent = () => {
         <p className="site-index-card-info">
           Publish year: {book?.publish_year}
         </p>
-        <p className="site-index-card-info">Genre: {book?.genre}</p>
+        <p className="site-index-card-info">Genre: {book?.genre?.name}</p>
         {book?.stock > 0 ? (
           book?.checkout ? (
             <Tag style={{ margin: "1em" }} color="red">

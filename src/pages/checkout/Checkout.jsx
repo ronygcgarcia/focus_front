@@ -34,7 +34,7 @@ const CheckoutComponent = () => {
         key: checkout.id,
         title: book.title,
         author: book.author,
-        user: `${checkout.first_name} ${checkout.last_name}`,
+        user: `${checkout.user?.first_name} ${checkout.user?.last_name}`,
         checkout_date: checkout.checkout_date,
         status: checkout.status,
       };
@@ -115,7 +115,7 @@ const CheckoutComponent = () => {
       ),
     },
   ];
-  if (user?.roles?.includes("librarian")) {
+  if (user?.profiles?.some(((profile) => profile.name === 'librarian'))) {
     columns.push({
       title: "Action",
       key: "Action",
