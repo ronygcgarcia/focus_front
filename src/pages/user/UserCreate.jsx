@@ -159,9 +159,9 @@ const UserCreateComponent = () => {
         </Form.Item>
 
         <Form.Item
-          label="Role"
-          name="role_id"
-          rules={[{ required: true, message: "Role is required!" }]}
+          label="Profile"
+          name="profile_id"
+          rules={[{ required: true, message: "Profile is required!" }]}
         >
           <Select>
             {roles.map((role) => (

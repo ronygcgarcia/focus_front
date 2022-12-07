@@ -39,7 +39,7 @@ const UserIndexComponent = () => {
       first_name: user.first_name,
       last_name: user.last_name,
       email: user.email,
-      profile: user?.profiles[0].name,
+      profile: user?.profiles[0]?.name,
     }));
     setUsers(users);
     setLoading(false);
