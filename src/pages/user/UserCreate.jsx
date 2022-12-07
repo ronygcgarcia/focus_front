@@ -91,7 +91,12 @@ const UserCreateComponent = () => {
         <Form.Item
           label="First name"
           name="first_name"
-          rules={[{ required: true, message: "First name is required!" }]}
+          rules={[
+            { required: true, message: "First name is required!" },
+            {
+              max: 30, message: 'First name cannot be more than 30 characters'
+            }
+          ]}
         >
           <Input />
         </Form.Item>
@@ -99,7 +104,12 @@ const UserCreateComponent = () => {
         <Form.Item
           label="Last name"
           name="last_name"
-          rules={[{ required: true, message: "Last name is required!" }]}
+          rules={[
+            { required: true, message: "Last name is required!" },
+            {
+              max: 30, message: 'Last name cannot be more than 30 characters'
+            }
+          ]}
         >
           <Input />
         </Form.Item>
@@ -107,7 +117,13 @@ const UserCreateComponent = () => {
         <Form.Item
           label="Email"
           name="email"
-          rules={[{ required: true, message: "Email is required!" }]}
+          rules={[
+            { type: "email", message: 'Email is not valid' },
+            { required: true, message: "Email is required!" },
+            {
+              max: 30, message: 'Email cannot be more than 30 characters'
+            }
+          ]}
         >
           <Input />
         </Form.Item>

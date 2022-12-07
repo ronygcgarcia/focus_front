@@ -92,7 +92,7 @@ const BookCreateComponente = () => {
           rules={[
             { required: true, message: "Title is required!" },
             {
-              max: 30, message: 'Title can not be longer than 30 characters'
+              max: 30, message: 'Title cannot be more than 30 characters'
             }
           ]}
         >
@@ -107,8 +107,9 @@ const BookCreateComponente = () => {
               required: true, message: "Description is required!"
             },
             {
-              max: 255, message: 'Description can not be longer than 255 characters'
-            }]}
+              max: 255, message: 'Description cannot be more than 255 characters'
+            }
+          ]}
         >
           <TextArea />
         </Form.Item>
@@ -116,7 +117,12 @@ const BookCreateComponente = () => {
         <Form.Item
           label="Image link"
           name="link_image"
-          rules={[{ required: true, message: "Link image is required!" }]}
+          rules={[
+            { required: true, message: "Link image is required!" },
+            {
+              max: 255, message: 'Link image cannot be more than 255 characters'
+            }
+          ]}
         >
           <Input />
         </Form.Item>
@@ -124,7 +130,12 @@ const BookCreateComponente = () => {
         <Form.Item
           label="Author"
           name="author"
-          rules={[{ required: true, message: "Author is required!" }]}
+          rules={[
+            { required: true, message: "Author is required!" },
+            {
+              max: 30, message: 'Author cannot be more than 30 characters'
+            }
+          ]}
         >
           <Input />
         </Form.Item>
@@ -153,15 +164,17 @@ const BookCreateComponente = () => {
             },
           ]}
         >
-          <Input type="number" max={new Date().getFullYear()} />
+          <Input type="number" max={new Date().getFullYear()} min={1800} />
         </Form.Item>
 
         <Form.Item
           label="Stock"
           name="stock"
-          rules={[{ required: true, message: "Stock is required!" }]}
+          rules={[
+            { required: true, message: "Stock is required!" },
+          ]}
         >
-          <Input />
+          <Input type="number" min={0} />
         </Form.Item>
 
         <Form.Item
