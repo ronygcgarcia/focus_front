@@ -89,7 +89,12 @@ const BookCreateComponente = () => {
         <Form.Item
           label="Title"
           name="title"
-          rules={[{ required: true, message: "Title is required!" }]}
+          rules={[
+            { required: true, message: "Title is required!" },
+            {
+              max: 30, message: 'Title can not be longer than 30 characters'
+            }
+          ]}
         >
           <Input />
         </Form.Item>
