@@ -1,4 +1,5 @@
 import { Button, Form, Input, Card } from "antd";
+import { UserOutlined, KeyOutlined } from "@ant-design/icons";
 import React, { useContext } from "react";
 import "./login.css";
 import { login } from "../../services/authService";
@@ -23,7 +24,7 @@ const LoginComponent = () => {
     } catch (error) {
       console.log(error.response);
       let msg;
-      if(error.response.status === 401 || error.response.status === 404 ) msg = 'Invalid credentials'
+      if (error.response.status === 401 || error.response.status === 404) msg = 'Invalid credentials'
       setNotification({
         type: "error",
         msg,
@@ -42,12 +43,11 @@ const LoginComponent = () => {
         maxHeight: "100vh",
       }}
     >
-      <div className="login-form">
-        <div className="login-card-title">
-          <p className="login-form-title">Welcome back</p>
-          <p className="login-form-subtitle">Login to the dashboard</p>
-        </div>
-        <div className="login-card">
+      <div className="login-container">
+        <div className="login-form">
+          <div className="login-form-title">
+            <p >Login</p>
+          </div>
           <Card bordered={false}>
             <Form
               name="basic"
@@ -55,7 +55,14 @@ const LoginComponent = () => {
                 span: 8,
               }}
               wrapperCol={{
-                span: 16,
+                md: {
+                  offset: 4,
+                  span: 16,
+                },
+                xl: {
+                  offset: 4,
+                  span: 16,
+                }
               }}
               initialValues={{
                 remember: true,
@@ -65,7 +72,6 @@ const LoginComponent = () => {
               autoComplete="off"
             >
               <Form.Item
-                label="Email"
                 name="email"
                 rules={[
                   {
@@ -74,11 +80,13 @@ const LoginComponent = () => {
                   },
                 ]}
               >
-                <Input />
+                <Input
+                  prefix={<UserOutlined />}
+                  placeholder="Email"
+                />
               </Form.Item>
 
               <Form.Item
-                label="Password"
                 name="password"
                 rules={[
                   {
@@ -87,19 +95,40 @@ const LoginComponent = () => {
                   },
                 ]}
               >
-                <Input.Password />
+                <Input.Password
+                  prefix={<KeyOutlined />}
+                  placeholder="Password"
+                />
               </Form.Item>
               <Form.Item
-                wrapperCol={{
-                  md: { offset: 16, span: 16 },
-                }}
+                wrapperCol={{ 
+                  md: {
+                    offset: 4,
+                    span: 16,
+                  },
+                  xl: {
+                    offset: 4,
+                    span: 16,
+                  }
+                 }}
               >
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit"
+                  style={{
+                    background: '#303a50',
+                    borderColor: '#303a50'
+                  }}>
                   Login
                 </Button>
               </Form.Item>
             </Form>
           </Card>
+        </div>
+        <div className="login-info">
+          <p className="login-info-title">My U Library</p>
+          <div>
+            <p>Welcome back</p>
+            <p>Login to the dashboard</p>
+          </div>
         </div>
       </div>
     </div>
