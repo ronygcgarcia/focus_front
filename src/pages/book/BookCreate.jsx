@@ -97,7 +97,13 @@ const BookCreateComponente = () => {
         <Form.Item
           label="Description"
           name="description"
-          rules={[{ required: true, message: "Description is required!" }]}
+          rules={[
+            {
+              required: true, message: "Description is required!"
+            },
+            {
+              max: 255, message: 'Description can not be longer than 255 characters'
+            }]}
         >
           <TextArea />
         </Form.Item>
@@ -165,7 +171,7 @@ const BookCreateComponente = () => {
             type="primary"
             htmlType="submit"
             className="site-checkout-button"
-            disabled={saving !== "checkout"}
+          // disabled={saving !== "checkout"}
           >
             {buttonStatus[saving]}
           </Button>

@@ -22,7 +22,7 @@ const getUser = async () => {
 };
 
 const getRoles = async () => {
-  const { data: roles } = await axios.get("/api/v1/roles");
+  const { data: roles } = await axios.get("/api/v1/profiles");
   return roles;
 };
 

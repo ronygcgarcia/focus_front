@@ -21,9 +21,12 @@ const LoginComponent = () => {
         msg: `Welcome`,
       });
     } catch (error) {
+      console.log(error.response);
+      let msg;
+      if(error.response.status === 401 || error.response.status === 404 ) msg = 'Invalid credentials'
       setNotification({
         type: "error",
-        msg: error.response.data.error,
+        msg,
       });
     }
   };
