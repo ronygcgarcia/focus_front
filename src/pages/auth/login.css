@@ -22,13 +22,17 @@
         flex-direction: column-reverse;
     }
 
+    .login-info-image {
+        display: none;
+    }
+
     .login-info {
         display: flex;
         align-items: center;
         flex-direction: column;
         justify-content: center;
         width: 100%;
-        height: 50%;
+        height: 30%;
         color: #fff;
         background: #303a50;
         font-family: Helvetica, sans-serif;
@@ -45,11 +49,12 @@
 
     .login-form {
         width: 100%;
-        height: 50%;
+        height: 70%;
     }
 
     .login-form-title {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         height: 35%;
@@ -89,6 +94,10 @@
         color: #fff;
         background: #303a50;
         font-family: Helvetica, sans-serif;
+    }
+
+    .login-info-image {
+        display: none;
     }
 
     .login-info>p.login-info-title {
@@ -147,6 +156,10 @@
         font-family: Helvetica, sans-serif;
     }
 
+    .login-info-image {
+        display: none;
+    }
+
     .login-info>p.login-info-title {
         font-size: 24px;
         font-weight: 900;
@@ -189,11 +202,15 @@
         align-items: center;
         height: 100vh;
     }
-    
+
     .login-form {
         background: #fff;
     }
-    
+
+    .login-info-image{
+        display: block;
+    }
+
     .login-container {
         display: flex;
         flex-direction: row;
@@ -203,7 +220,7 @@
         overflow: hidden;
         box-shadow: 0 0 50px #ccc;
     }
-    
+
     .login-info {
         display: flex;
         align-items: center;
@@ -215,32 +232,31 @@
         background: #303a50;
         font-family: Helvetica, sans-serif;
     }
-    
+
     .login-info>p.login-info-title {
-        font-size: 24px;
-        font-weight: 900;
+        display: none;
     }
-    
+
     .login-info>div>p {
-        margin: 0;
+        display: none;
     }
-    
+
     .login-form {
         width: 100%;
     }
-    
+
     .login-form-title {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 45%;
     }
-    
+
     .login-form-title>p {
         font-size: 32px;
         font-weight: 900;
     }
-    
+
     .login-card {
         display: flex;
         flex-direction: column;

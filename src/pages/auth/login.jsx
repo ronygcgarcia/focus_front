@@ -1,10 +1,11 @@
-import { Button, Form, Input, Card } from "antd";
+import { Button, Form, Input, Card, Image } from "antd";
 import { UserOutlined, KeyOutlined } from "@ant-design/icons";
 import React, { useContext } from "react";
 import "./login.css";
 import { login } from "../../services/authService";
 import AuthContext from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import loginLogo from './assets/login.svg';
 
 const LoginComponent = () => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const LoginComponent = () => {
       <div className="login-container">
         <div className="login-form">
           <div className="login-form-title">
-            <p >Login</p>
+            <p>Login</p>
           </div>
           <Card bordered={false}>
             <Form
@@ -101,7 +102,7 @@ const LoginComponent = () => {
                 />
               </Form.Item>
               <Form.Item
-                wrapperCol={{ 
+                wrapperCol={{
                   md: {
                     offset: 4,
                     span: 16,
@@ -110,7 +111,7 @@ const LoginComponent = () => {
                     offset: 4,
                     span: 16,
                   }
-                 }}
+                }}
               >
                 <Button type="primary" htmlType="submit"
                   style={{
@@ -128,6 +129,13 @@ const LoginComponent = () => {
           <div>
             <p>Welcome back</p>
             <p>Login to the dashboard</p>
+          </div>
+          <div>
+            <Image
+              className="login-info-image"
+              width={"70%"}
+              preview={false}
+              src={loginLogo}></Image>
           </div>
         </div>
       </div>
