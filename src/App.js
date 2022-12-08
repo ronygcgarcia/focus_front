@@ -25,8 +25,11 @@ function App() {
 
   useEffect(() => {
     async function fetchUser() {
-      const user = await getUser();
-      setUser(user);
+      try {
+        const user = await getUser();
+        setUser(user);
+      }
+      catch { }
     }
 
     fetchUser();
@@ -37,6 +40,7 @@ function App() {
       const messageNotification = {
         success: (msg) => message.success(msg),
         error: (msg) => message.error(msg),
+        loading: (msg) => message.info(msg),
       };
       messageNotification[notification.type](notification.msg);
     }
@@ -70,7 +74,7 @@ function App() {
               />
             </Route>
             <Route path="/login" element={<LoginComponent />} />
-            <Route path="*" element={<NotFoundPage />} />            
+            <Route path="*" element={<NotFoundPage />} />
             <Route path="/forbidden" element={<Forbidden />} />
           </Routes>
         </Router>
