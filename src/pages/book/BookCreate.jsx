@@ -92,7 +92,7 @@ const BookCreateComponente = () => {
           rules={[
             { required: true, message: "Title is required!" },
             {
-              max: 30, message: 'Title cannot be more than 30 characters'
+              max: 50, message: 'Title cannot be more than 30 characters'
             }
           ]}
         >
