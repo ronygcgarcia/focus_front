@@ -13,6 +13,10 @@ const LoginComponent = () => {
   const onFinish = async (values) => {
     const { email, password } = values;
     try {
+      setNotification({
+        type: "loading",
+        msg: `Loading dashboard`,
+      });
       const { token } = await login(email, password);
       localStorage.setItem("token", token);
       navigate("/");
