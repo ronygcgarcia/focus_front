@@ -2,37 +2,71 @@ import { Button, Form, Input, Card, Image } from "antd";
 import { UserOutlined, KeyOutlined } from "@ant-design/icons";
 import React, { useContext } from "react";
 import "./login.css";
-import { login } from "../../services/authService";
+import { getUser, login } from "../../services/authService";
 import AuthContext from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import loginLogo from './assets/login.svg';
 
 const LoginComponent = () => {
   const navigate = useNavigate();
-  const { setLoggedIn, setNotification } = useContext(AuthContext);
+  const { authState, authDispatch } = useContext(AuthContext);
 
   const onFinish = async (values) => {
     const { email, password } = values;
     try {
-      setNotification({
-        type: "loading",
-        msg: `Loading dashboard`,
+      authDispatch({
+        type: 'notification',
+        payload: {
+          notification: {
+            type: "loading",
+            msg: `Loading dashboard`,
+          }
+        }
+      });
+      authDispatch({
+        type: 'log',
+        payload: {
+          loggedIn: true
+        }
       });
       const { token } = await login(email, password);
       localStorage.setItem("token", token);
       navigate("/");
-      setLoggedIn(true);
-      setNotification({
-        type: "success",
-        msg: `Welcome`,
+      authDispatch({
+        type: 'notification',
+        payload: {
+          notification: {
+            type: "success",
+            msg: `Welcome`,
+          }
+        }
       });
+      const user = await getUser();
+      console.log(authState);
+      authDispatch({
+        type: 'user',
+        payload: {
+          user
+        }
+      })
     } catch (error) {
-      console.log(error.response);
-      let msg;
+      console.log(error);
+      authDispatch({
+        type: 'log',
+        payload: {
+          loggedIn: false
+        }
+      });
+      let msg = 'Something went wrong';
       if (error.response.status === 401 || error.response.status === 404) msg = 'Invalid credentials'
-      setNotification({
-        type: "error",
-        msg,
+      authDispatch({
+        type: 'notification',
+        payload: {
+          notification: {
+            type: "error",
+            msg,
+          }
+        }
       });
     }
   };
@@ -121,7 +155,9 @@ const LoginComponent = () => {
                   style={{
                     background: '#303a50',
                     borderColor: '#303a50'
-                  }}>
+                  }}
+                  disabled={authState.loggedIn}
+                >
                   Login
                 </Button>
               </Form.Item>

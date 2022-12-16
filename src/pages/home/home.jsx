@@ -12,7 +12,7 @@ const { Header, Sider, Content } = Layout;
 
 const HomeComponent = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const { setLoggedIn, user } = useContext(AuthContext);
+  const { authState, authDispatch } = useContext(AuthContext);
   const [routes, setRoutes] = useState([]);
 
   const navigate = useNavigate();
@@ -20,7 +20,21 @@ const HomeComponent = () => {
   async function logout() {
     localStorage.removeItem("token");
     navigate("/login");
-    setLoggedIn(false);
+    authDispatch({
+      type: 'log',
+      payload: {
+        loggedIn: false
+      }
+    });
+    authDispatch({
+      type: 'notification',
+      payload:{
+        notification: {
+          type: "loading",
+          msg: `Good bye`,
+        }
+      }
+    });
   }
 
   useEffect(() => {
@@ -102,8 +116,8 @@ const HomeComponent = () => {
             >
               <div className="site-dropdown">
                 <Space>
-                  {user.first_name}
-                  {user.last_name}
+                  {authState.user.first_name}
+                  {authState.user.last_name}
                   <DownOutlined />
                 </Space>
               </div>
